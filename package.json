@@ -7,7 +7,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -18,11 +20,14 @@
   "bugs": {
     "url": "https://github.com/mattdaisley/waveform-data-test/issues"
   },
-  "homepage": "https://github.com/mattdaisley/waveform-data-test#readme",
+  "homepage": "https://mattdaisley.github.io/waveform-data-test",
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.5",
     "waveform-data": "^3.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }
