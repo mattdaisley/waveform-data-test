@@ -19,12 +19,10 @@ class AudioAnalyser extends Component {
   }
 
   tick() {
-    if (!!this.props.on) {
-      this.analyser.getByteTimeDomainData(this.dataArray);
-      const newAudioData = [...this.state.audioData, ...this.dataArray];
-      this.setState({ audioData: newAudioData });
-      if (!!this.props.onNewAudioData) this.props.onNewAudioData(newAudioData);
-    }
+    this.analyser.getByteTimeDomainData(this.dataArray);
+    const newAudioData = [...this.state.audioData, ...this.dataArray];
+    this.setState({ audioData: newAudioData });
+    if (!!this.props.onNewAudioData) this.props.onNewAudioData(newAudioData);
     this.rafId = requestAnimationFrame(this.tick);
   }
 

@@ -7,7 +7,6 @@ class App extends Component {
     super(props);
     this.state = {
       audio: null,
-      on: false,
       audioLog: [],
       currentAudioLogIndex: 0
     };
@@ -16,7 +15,6 @@ class App extends Component {
   }
 
   async getMicrophone() {
-    this.setState({ audio: null, on: true });
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false
@@ -29,11 +27,11 @@ class App extends Component {
 
     audio.getTracks().forEach(track => track.stop());
 
-    this.setState({ on: false, currentAudioLogIndex: currentAudioLogIndex + 1 });
+    this.setState({ audio: null, currentAudioLogIndex: currentAudioLogIndex + 1 });
   }
 
   toggleMicrophone() {
-    if (this.state.on) {
+    if (this.state.audio) {
       this.stopMicrophone();
     } else {
       this.getMicrophone();
@@ -53,10 +51,10 @@ class App extends Component {
       <div className="App">
         <div className="controls">
           <button onClick={this.toggleMicrophone}>
-            {this.state.on ? 'Stop microphone' : 'Get microphone input'}
+            {this.state.audio ? 'Stop microphone' : 'Get microphone input'}
           </button>
         </div>
-        {this.state.audio ? <AudioAnalyser audio={this.state.audio} on={this.state.on} onNewAudioData={this.handleNewAudioData} /> : ''}
+        {this.state.audio ? <AudioAnalyser audio={this.state.audio} onNewAudioData={this.handleNewAudioData} /> : ''}
 
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {this.state.audioLog.map((logItem, i) => <AudioVisualiser key={i} audioData={logItem} canvasWidth={300} />)}
